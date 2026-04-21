@@ -1,1216 +1,416 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Surendar L. — ECE Engineer | Embedded Systems · IoT · AI</title>
-<meta name="description" content="Surendar L. — Electronics & Communication Engineer specialising in Embedded Systems, IoT, YOLO Computer Vision, Arduino, and AI-integrated electronics."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-<style>
-/* ─── TOKENS ────────────────────────────────────────────── */
-:root{
-  --bg:        #060A12;
-  --bg2:       #0C1220;
-  --bg3:       #111928;
-  --card:      #131C2E;
-  --cardB:     #1A2540;
-  --copper:    #E8920A;
-  --copperL:   #F9B942;
-  --green:     #22C55E;
-  --greenD:    #16A34A;
-  --blue:      #3B82F6;
-  --blueL:     #60A5FA;
-  --text:      #E2E8F0;
-  --muted:     #94A3B8;
-  --border:    rgba(232,146,10,.18);
-  --borderD:   rgba(255,255,255,.07);
-  --glow:      0 0 24px rgba(232,146,10,.25);
-  --glowG:     0 0 24px rgba(34,197,94,.2);
-  --r:         10px;
-  --rL:        16px;
-  --mono:      'Share Tech Mono', monospace;
-  --head:      'Rajdhani', sans-serif;
-  --body:      'Nunito Sans', sans-serif;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surendar L | Embedded Systems & IoT Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
 
-/* ─── RESET ─────────────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
-body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.65;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-ul{list-style:none}
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+        }
 
-/* ─── SCROLLBAR ─────────────────────────────────────────── */
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--copper);border-radius:99px}
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f1f5f9;
+            scroll-behavior: smooth;
+        }
 
-/* ─── CANVAS BACKGROUND ─────────────────────────────────── */
-#circuit-canvas{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;opacity:.4;
-}
+        .mono { font-family: 'Fira+Code', monospace; }
 
-/* ─── NAV ────────────────────────────────────────────────── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:0 5%;height:64px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(6,10,18,.85);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--borderD);
-  transition:box-shadow .3s;
-}
-nav.scrolled{box-shadow:0 2px 24px rgba(0,0,0,.6)}
-.nav-logo{
-  font-family:var(--head);font-size:1.35rem;font-weight:700;
-  letter-spacing:.08em;
-  background:linear-gradient(90deg,var(--copper),var(--copperL));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.nav-links{display:flex;gap:2rem;align-items:center}
-.nav-links a{
-  font-family:var(--head);font-size:.9rem;font-weight:600;
-  letter-spacing:.06em;color:var(--muted);
-  transition:color .2s;text-transform:uppercase;
-}
-.nav-links a:hover{color:var(--copper)}
-.nav-cta{
-  padding:.45rem 1.2rem;border:1.5px solid var(--copper);
-  border-radius:6px;color:var(--copper)!important;
-  font-size:.85rem!important;
-  transition:all .2s!important;
-}
-.nav-cta:hover{background:var(--copper);color:#000!important;box-shadow:var(--glow)}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
-.nav-hamburger span{width:24px;height:2px;background:var(--copper);transition:.3s;display:block}
-.mobile-menu{
-  display:none;position:fixed;top:64px;left:0;right:0;
-  background:rgba(6,10,18,.98);backdrop-filter:blur(20px);
-  padding:2rem;z-index:99;flex-direction:column;gap:1.5rem;
-  border-bottom:1px solid var(--border);
-}
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-family:var(--head);font-size:1.1rem;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-.mobile-menu a:hover{color:var(--copper)}
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-/* ─── SECTION SKELETON ───────────────────────────────────── */
-section{position:relative;z-index:1;padding:7rem 5%}
-.section-label{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--mono);font-size:.75rem;color:var(--copper);
-  letter-spacing:.14em;text-transform:uppercase;margin-bottom:1rem;
-}
-.section-label::before{content:'';width:28px;height:1.5px;background:var(--copper)}
-.section-title{
-  font-family:var(--head);font-size:clamp(2rem,4vw,2.8rem);
-  font-weight:700;letter-spacing:.04em;color:var(--text);
-  line-height:1.15;margin-bottom:.6rem;
-}
-.section-sub{color:var(--muted);font-size:1rem;max-width:600px;margin-bottom:3rem}
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+        }
 
-/* ─── HERO ───────────────────────────────────────────────── */
-#hero{
-  min-height:100vh;display:flex;align-items:center;
-  padding-top:64px;
-  position:relative;overflow:hidden;
-}
-.hero-inner{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:4rem;align-items:center;width:100%;max-width:1200px;margin:0 auto;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--mono);font-size:.7rem;color:var(--green);
-  border:1px solid var(--green);padding:.35rem .75rem;border-radius:99px;
-  margin-bottom:1.2rem;letter-spacing:.1em;
-}
-.hero-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.8s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
-.hero-name{
-  font-family:var(--head);font-size:clamp(3rem,6vw,5rem);
-  font-weight:700;letter-spacing:.04em;line-height:1.05;
-  margin-bottom:.4rem;
-}
-.hero-name .copper{
-  background:linear-gradient(100deg,var(--copper),var(--copperL) 60%,#fff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.hero-role{
-  font-family:var(--head);font-size:clamp(1rem,2vw,1.35rem);
-  color:var(--muted);font-weight:500;letter-spacing:.06em;
-  margin-bottom:1.6rem;
-}
-.hero-role .hl{color:var(--copper);font-weight:700}
-.hero-desc{
-  color:var(--muted);font-size:1rem;line-height:1.8;max-width:520px;
-  margin-bottom:2rem;
-}
-.hero-tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.4rem}
-.tag{
-  font-family:var(--mono);font-size:.72rem;padding:.3rem .8rem;
-  border-radius:5px;letter-spacing:.06em;
-}
-.tag.ece{background:rgba(232,146,10,.12);color:var(--copperL);border:1px solid rgba(232,146,10,.3)}
-.tag.sw {background:rgba(59,130,246,.1); color:var(--blueL);  border:1px solid rgba(59,130,246,.25)}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-primary{
-  padding:.75rem 2rem;background:var(--copper);color:#000;
-  font-family:var(--head);font-weight:700;font-size:1rem;
-  letter-spacing:.06em;border-radius:8px;
-  transition:all .25s;box-shadow:var(--glow);
-}
-.btn-primary:hover{background:var(--copperL);transform:translateY(-2px)}
-.btn-outline{
-  padding:.75rem 2rem;border:1.5px solid var(--border);color:var(--text);
-  font-family:var(--head);font-weight:600;font-size:1rem;
-  letter-spacing:.06em;border-radius:8px;
-  transition:all .25s;
-}
-.btn-outline:hover{border-color:var(--copper);color:var(--copper);box-shadow:var(--glow)}
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.1);
+        }
 
-/* oscilloscope panel */
-.hero-panel{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rL);padding:1.6rem;position:relative;
-  overflow:hidden;
-}
-.hero-panel::before{
-  content:'ECE SIGNAL MONITOR';position:absolute;top:12px;left:50%;transform:translateX(-50%);
-  font-family:var(--mono);font-size:.6rem;color:var(--copper);letter-spacing:.18em;opacity:.7;
-}
-.osc-screen{
-  background:#020A04;border:1px solid #1a2e1a;border-radius:8px;
-  padding:1.2rem;margin-bottom:1rem;position:relative;overflow:hidden;
-}
-.osc-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(34,197,94,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34,197,94,.06) 1px, transparent 1px);
-  background-size: 20% 20%;
-}
-canvas.osc-wave{width:100%;height:80px;display:block;position:relative;z-index:1}
-.osc-labels{
-  display:flex;justify-content:space-between;
-  font-family:var(--mono);font-size:.62rem;color:rgba(34,197,94,.6);
-  margin-top:.4rem;
-}
-.panel-metrics{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem}
-.metric{
-  background:var(--bg2);border:1px solid var(--borderD);
-  border-radius:7px;padding:.7rem;
-}
-.metric-label{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.2rem}
-.metric-value{font-family:var(--mono);font-size:1rem;color:var(--copperL);font-weight:700}
-.metric-value.green{color:var(--green)}
-.panel-stack{margin-top:1rem;background:var(--bg2);border-radius:8px;padding:.9rem;border:1px solid var(--borderD)}
-.stack-line{
-  font-family:var(--mono);font-size:.7rem;color:var(--muted);
-  padding:.18rem 0;display:flex;align-items:center;gap:.5rem;
-}
-.stack-line .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.dot.copper{background:var(--copper)}
-.dot.green{background:var(--green)}
-.dot.blue{background:var(--blueL)}
+        .project-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-/* ─── ABOUT ──────────────────────────────────────────────── */
-#about{background:var(--bg2)}
-.about-grid{display:grid;grid-template-columns:2fr 1.2fr;gap:4rem;align-items:start}
-.about-text p{color:var(--muted);line-height:1.85;margin-bottom:1rem}
-.about-text p strong{color:var(--text)}
-.about-callout{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rL);padding:1.8rem;
-  border-left:3px solid var(--copper);
-}
-.about-callout h4{
-  font-family:var(--head);font-size:1rem;font-weight:700;
-  color:var(--copper);letter-spacing:.08em;margin-bottom:1rem;text-transform:uppercase;
-}
-.stat-row{display:flex;flex-direction:column;gap:.9rem}
-.stat-item{display:flex;align-items:center;gap:.8rem}
-.stat-icon{
-  width:36px;height:36px;border-radius:8px;
-  background:rgba(232,146,10,.1);border:1px solid rgba(232,146,10,.2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;flex-shrink:0;
-}
-.stat-detail h5{font-family:var(--head);font-size:.9rem;font-weight:700;color:var(--text)}
-.stat-detail p{font-size:.8rem;color:var(--muted)}
-.availability-pill{
-  display:inline-flex;align-items:center;gap:.5rem;
-  background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);
-  border-radius:99px;padding:.4rem 1rem;margin-top:1.2rem;
-  font-family:var(--mono);font-size:.7rem;color:var(--green);
-}
+        .project-card:hover {
+            border-color: rgba(0, 210, 255, 0.4);
+            background: rgba(30, 41, 59, 0.8);
+        }
 
-/* ─── SKILLS ─────────────────────────────────────────────── */
-#skills{}
-.skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.skill-group{
-  background:var(--card);border:1px solid var(--borderD);
-  border-radius:var(--rL);padding:1.6rem;
-  transition:border-color .25s,box-shadow .25s;
-  position:relative;overflow:hidden;
-}
-.skill-group::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg, transparent, var(--copper), transparent);
-  opacity:0;transition:opacity .3s;
-}
-.skill-group:hover{border-color:var(--border);box-shadow:var(--glow)}
-.skill-group:hover::before{opacity:1}
-.skill-group.ece-group::before{background:linear-gradient(90deg,transparent,var(--copper),transparent)}
-.skill-group.sw-group::before{background:linear-gradient(90deg,transparent,var(--blueL),transparent)}
-.sg-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
-.sg-icon{
-  width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;flex-shrink:0;
-}
-.sg-icon.cop{background:rgba(232,146,10,.12);border:1px solid rgba(232,146,10,.2)}
-.sg-icon.blu{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2)}
-.sg-title{font-family:var(--head);font-size:1rem;font-weight:700;color:var(--text);letter-spacing:.04em}
-.sg-badge{
-  margin-left:auto;font-family:var(--mono);font-size:.62rem;
-  padding:.2rem .6rem;border-radius:99px;letter-spacing:.06em;
-}
-.sg-badge.ece{background:rgba(232,146,10,.12);color:var(--copper);border:1px solid rgba(232,146,10,.25)}
-.sg-badge.sw{background:rgba(59,130,246,.1);color:var(--blueL);border:1px solid rgba(59,130,246,.2)}
-.chips{display:flex;flex-wrap:wrap;gap:.5rem}
-.chip{
-  font-family:var(--mono);font-size:.68rem;padding:.25rem .65rem;
-  border-radius:5px;letter-spacing:.04em;
-  background:var(--bg2);border:1px solid var(--borderD);color:var(--muted);
-  transition:all .2s;
-}
-.chip:hover{color:var(--text);border-color:var(--borderD)}
-.chip.main{background:rgba(232,146,10,.08);border-color:rgba(232,146,10,.2);color:var(--copperL)}
-.chip.mainB{background:rgba(59,130,246,.07);border-color:rgba(59,130,246,.18);color:var(--blueL)}
+        .text-gradient {
+            background: linear-gradient(to right, #00d2ff, #94fbab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-/* ─── PROJECTS ───────────────────────────────────────────── */
-#projects{background:var(--bg2)}
-.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.proj-card{
-  background:var(--card);border:1px solid var(--borderD);
-  border-radius:var(--rL);padding:1.8rem;
-  display:flex;flex-direction:column;
-  transition:transform .25s,border-color .25s,box-shadow .25s;
-  position:relative;overflow:hidden;
-}
-.proj-card:hover{transform:translateY(-5px);border-color:var(--border);box-shadow:var(--glow)}
-.proj-card.featured{
-  grid-column:span 2;
-  display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;
-  border-color:rgba(232,146,10,.25);
-}
-.proj-card.featured::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--copper),var(--copperL));
-}
-.proj-num{
-  font-family:var(--mono);font-size:.65rem;color:var(--muted);
-  letter-spacing:.1em;margin-bottom:.6rem;
-}
-.proj-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem}
-.proj-tag{
-  font-family:var(--mono);font-size:.62rem;padding:.2rem .55rem;
-  border-radius:4px;letter-spacing:.04em;
-}
-.pt-ece{background:rgba(232,146,10,.1);color:var(--copper);border:1px solid rgba(232,146,10,.2)}
-.pt-ai {background:rgba(34,197,94,.08);color:var(--green);border:1px solid rgba(34,197,94,.2)}
-.pt-sw {background:rgba(59,130,246,.08);color:var(--blueL);border:1px solid rgba(59,130,246,.18)}
-.proj-title{
-  font-family:var(--head);font-size:1.25rem;font-weight:700;
-  color:var(--text);letter-spacing:.04em;margin-bottom:.7rem;line-height:1.25;
-}
-.proj-desc{color:var(--muted);font-size:.88rem;line-height:1.75;margin-bottom:1.2rem}
-.proj-bullets{
-  list-style:none;margin-bottom:1.4rem;flex:1;
-}
-.proj-bullets li{
-  font-size:.83rem;color:var(--muted);padding:.3rem 0;padding-left:1.2rem;
-  position:relative;
-}
-.proj-bullets li::before{
-  content:'▸';position:absolute;left:0;color:var(--copper);font-size:.75rem;top:.35rem;
-}
-.proj-bullets li strong{color:var(--text)}
-.proj-footer{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-top:auto;padding-top:1rem;border-top:1px solid var(--borderD);
-}
-.proj-link{
-  font-family:var(--mono);font-size:.72rem;color:var(--copper);
-  letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;
-  transition:gap .2s;
-}
-.proj-link:hover{gap:.7rem}
-.proj-chips{display:flex;flex-wrap:wrap;gap:.4rem}
-.proj-chip{
-  font-family:var(--mono);font-size:.6rem;padding:.15rem .5rem;
-  border-radius:3px;background:var(--bg2);border:1px solid var(--borderD);
-  color:var(--muted);
-}
-.proj-icon{
-  width:48px;height:48px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;font-size:1.6rem;
-  margin-bottom:1rem;flex-shrink:0;
-}
-.pi-copper{background:rgba(232,146,10,.1);border:1px solid rgba(232,146,10,.2)}
-.pi-green {background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2)}
-.pi-blue  {background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.18)}
+        .btn-glow:hover {
+            box-shadow: 0 0 15px var(--primary);
+        }
 
-/* featured layout helpers */
-.proj-card.featured .proj-left{}
-.proj-card.featured .proj-right{
-  background:var(--bg2);border:1px solid var(--borderD);
-  border-radius:var(--r);padding:1.2rem;
-}
-.hw-block{margin-bottom:1rem}
-.hw-block-title{
-  font-family:var(--mono);font-size:.65rem;color:var(--copper);
-  letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem;
-}
-.hw-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.4rem 0;border-bottom:1px solid var(--borderD);
-  font-size:.8rem;
-}
-.hw-row:last-child{border-bottom:none}
-.hw-row .hw-key{color:var(--muted);font-family:var(--mono);font-size:.7rem}
-.hw-row .hw-val{color:var(--text);font-weight:600}
-.flow-steps{display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem}
-.flow-step{
-  display:flex;align-items:center;gap:.7rem;
-  font-size:.78rem;color:var(--muted);
-}
-.flow-dot{
-  width:26px;height:26px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:.65rem;font-weight:700;flex-shrink:0;
-}
-.fd-copper{background:rgba(232,146,10,.15);color:var(--copper);border:1px solid rgba(232,146,10,.3)}
-.fd-green{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.25)}
-.flow-arrow{color:var(--borderD);align-self:center;margin-left:13px;font-size:.8rem}
-
-/* ─── EXPERIENCE ─────────────────────────────────────────── */
-#experience{}
-.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.timeline{position:relative}
-.tl-entry{
-  display:flex;gap:1.2rem;margin-bottom:2rem;position:relative;
-}
-.tl-entry::before{
-  content:'';position:absolute;left:16px;top:34px;bottom:-2rem;
-  width:1px;background:var(--borderD);
-}
-.tl-entry:last-child::before{display:none}
-.tl-dot{
-  width:33px;height:33px;border-radius:50%;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:1rem;
-  position:relative;z-index:1;
-}
-.tl-body{}
-.tl-meta{
-  display:flex;align-items:center;gap:.6rem;margin-bottom:.3rem;flex-wrap:wrap;
-}
-.tl-year{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.08em}
-.tl-badge{
-  font-family:var(--mono);font-size:.6rem;padding:.15rem .55rem;
-  border-radius:99px;letter-spacing:.06em;
-}
-.tb-copper{background:rgba(232,146,10,.1);color:var(--copper);border:1px solid rgba(232,146,10,.2)}
-.tb-blue{background:rgba(59,130,246,.08);color:var(--blueL);border:1px solid rgba(59,130,246,.18)}
-.tl-title{font-family:var(--head);font-size:1rem;font-weight:700;color:var(--text);letter-spacing:.04em;margin-bottom:.2rem}
-.tl-org{font-size:.82rem;color:var(--copper);margin-bottom:.5rem}
-.tl-desc{font-size:.82rem;color:var(--muted);line-height:1.7}
-.cert-grid{display:grid;grid-template-columns:1fr;gap:1rem}
-.cert-item{
-  display:flex;align-items:center;gap:.9rem;
-  background:var(--card);border:1px solid var(--borderD);
-  border-radius:var(--r);padding:.9rem 1rem;
-  transition:border-color .2s;
-}
-.cert-item:hover{border-color:var(--border)}
-.cert-icon{
-  width:34px;height:34px;border-radius:7px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:1rem;
-  background:rgba(232,146,10,.08);border:1px solid rgba(232,146,10,.15);
-}
-.cert-text h5{font-family:var(--head);font-size:.88rem;font-weight:700;color:var(--text)}
-.cert-text p{font-size:.75rem;color:var(--muted)}
-.coursework{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rL);padding:1.6rem;margin-top:1.5rem;
-}
-.cw-title{
-  font-family:var(--mono);font-size:.7rem;color:var(--copper);
-  letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;
-}
-.cw-chips{display:flex;flex-wrap:wrap;gap:.5rem}
-.cw-chip{
-  font-family:var(--mono);font-size:.68rem;padding:.28rem .7rem;
-  border-radius:5px;background:rgba(232,146,10,.06);
-  border:1px solid rgba(232,146,10,.15);color:var(--copperL);
-}
-
-/* ─── CONTACT ────────────────────────────────────────────── */
-#contact{background:var(--bg2);text-align:center}
-.contact-inner{max-width:680px;margin:0 auto}
-.contact-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
-  margin:2.5rem 0;text-align:left;
-}
-.contact-card{
-  background:var(--card);border:1px solid var(--borderD);
-  border-radius:var(--r);padding:1.2rem 1.4rem;
-  display:flex;align-items:center;gap:1rem;
-  transition:all .25s;
-}
-.contact-card:hover{border-color:var(--border);box-shadow:var(--glow);transform:translateY(-3px)}
-.cc-icon{font-size:1.4rem;width:40px;text-align:center;flex-shrink:0}
-.cc-label{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.cc-value{font-family:var(--head);font-size:.92rem;font-weight:700;color:var(--text)}
-.contact-footer{
-  font-family:var(--mono);font-size:.7rem;color:var(--muted);
-  margin-top:3rem;padding-top:2rem;border-top:1px solid var(--borderD);
-  letter-spacing:.06em;
-}
-
-/* ─── FOOTER ─────────────────────────────────────────────── */
-footer{
-  position:relative;z-index:1;
-  background:var(--bg);border-top:1px solid var(--borderD);
-  padding:2rem 5%;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:1rem;
-}
-.footer-brand{
-  font-family:var(--head);font-size:1rem;font-weight:700;
-  background:linear-gradient(90deg,var(--copper),var(--copperL));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.footer-copy{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
-
-/* ─── ANIMATIONS ─────────────────────────────────────────── */
-.fade-up{
-  opacity:0;transform:translateY(28px);
-  transition:opacity .65s ease, transform .65s ease;
-}
-.fade-up.visible{opacity:1;transform:translateY(0)}
-
-/* ─── RESPONSIVE ─────────────────────────────────────────── */
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr}
-  .hero-panel{display:none}
-  .about-grid{grid-template-columns:1fr}
-  .skills-layout{grid-template-columns:1fr}
-  .proj-grid{grid-template-columns:1fr}
-  .proj-card.featured{grid-column:span 1;display:flex;flex-direction:column}
-  .proj-card.featured .proj-right{display:none}
-  .exp-grid{grid-template-columns:1fr}
-  .contact-grid{grid-template-columns:1fr}
-  .nav-links{display:none}
-  .nav-hamburger{display:flex}
-}
-@media(max-width:600px){
-  section{padding:5rem 4%}
-  .hero-name{font-size:2.6rem}
-}
-</style>
+        section { padding: 80px 20px; }
+        
+        .timeline-line {
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+    </style>
 </head>
 <body>
 
-<!-- circuit canvas -->
-<canvas id="circuit-canvas"></canvas>
-
-<!-- ─── NAV ─── -->
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">SL · ECE</a>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#experience">Experience</a>
-    <a href="#contact" class="nav-cta">Contact</a>
-  </div>
-  <div class="nav-hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about"       onclick="closeMobile()">About</a>
-  <a href="#skills"      onclick="closeMobile()">Skills</a>
-  <a href="#projects"    onclick="closeMobile()">Projects</a>
-  <a href="#experience"  onclick="closeMobile()">Experience</a>
-  <a href="#contact"     onclick="closeMobile()">Contact</a>
-</div>
-
-<!-- ─── HERO ─── -->
-<section id="hero">
-  <div class="hero-inner">
-    <div class="hero-left fade-up">
-      <div class="hero-badge">● Available · ECE Intern</div>
-      <h1 class="hero-name">
-        <span class="copper">Surendar</span> L.
-      </h1>
-      <p class="hero-role">
-         · Embedded Systems · IoT · Computer Vision· Web development
-      </p>
-      <p class="hero-desc">
-        B.Tech Electronics &amp; Communication Engineering student at Pondicherry University. I design systems where hardware meets intelligence — from Arduino microcontrollers running YOLO-based traffic control to real-time IoT sensor dashboards with embedded AI classification.
-      </p>
-      <div class="hero-tags">
-        <span class="tag ece">Arduino · Embedded C</span>
-        <span class="tag ece">YOLO · OpenCV</span>
-                <span class="tag ece">Dynamic Web development </span>
-        <span class="tag ece">IoT · MQTT · BLE</span>
-
-        <span class="tag sw">React Native App Development</span>
-        <span class="tag sw">Python</span>
-      </div>
-      <div class="hero-btns">
-        <a href="#projects" class="btn-primary">View Projects ↓</a>
-        <a href="#contact" class="btn-outline">Get in Touch</a>
-      </div>
-    </div>
-
-    <!-- oscilloscope panel -->
-    
-  </div>
-</section>
-
-<!-- ─── ABOUT ─── -->
-<section id="about">
-  <div class="section-label">Profile</div>
-  <h2 class="section-title">Engineer who builds at the <br>hardware–software boundary.</h2>
-
-  <div class="about-grid">
-    <div class="about-text fade-up">
-      <p>
-        I'm <strong>Surendar L.</strong>, a B.Tech ECE(2024-28) student at Pondicherry University specialising in <strong>Embedded Systems, IoT sensor integration, Computer Vision, and AI-integrated electronics</strong>. My work sits at the intersection of hardware and intelligence.
-      </p>
-      <p>
-        My primary project — a <strong>Density-Based Adaptive Traffic Light System</strong> — combines YOLO real-time object detection with an Arduino microcontroller programmed in Embedded C, with a Python serial bridge translating AI inference into physical hardware control. That is what I love building: systems where software drives electrons.
-      </p>
-      <p>
-        Beyond embedded work, I build <strong>full-stack IoT mobile dashboards</strong> in React Native — ingesting live sensor data, processing it through AI classification pipelines, and surfacing it in intuitive visualisations. I also built a <strong>Face Recognition Attendance System</strong> using DeepFace and OpenCV, demonstrating deep learning integration for physical access control.
-      </p>
-      <p>
-        I have hands-on experience with <strong>MQTT, BLE, REST APIs, WebSockets</strong>, and cloud IoT backends — giving me a full-stack view from firmware and sensor signal to cloud dashboard and mobile UI.
-      </p>
-      <div class="availability-pill">● Available · Remote-ready</div>
-    </div>
-
-    <div class="about-callout fade-up">
-      <h4>At a Glance</h4>
-      <div class="stat-row">
-        <div class="stat-item">
-          <div class="stat-icon">🎓</div>
-          <div class="stat-detail">
-            <h5>B.Tech ECE</h5>
-            <p>Pondicherry University · 2028</p>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">🔌</div>
-          <div class="stat-detail">
-            <h5>Embedded + IoT</h5>
-            <p>Arduino, MQTT, BLE, Sensor Integration</p>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">👁️</div>
-          <div class="stat-detail">
-            <h5>Computer Vision</h5>
-            <p>YOLO, OpenCV, DeepFace</p>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">📱</div>
-          <div class="stat-detail">
-            <h5>IoT Mobile Apps</h5>
-            <p>React Native, TypeScript, Firebase</p>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">🔒</div>
-          <div class="stat-detail">
-            <h5>Govt. Internship</h5>
-            <p>Pondicherry Cyber Crime Unit · 2025</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── SKILLS ─── -->
-<section id="skills">
-  <div class="section-label">Expertise</div>
-  <h2 class="section-title">Skills — ECE Core, Software</h2>
-  <p class="section-sub">Technical competencies spanning embedded hardware, IoT protocols, computer vision, and full-stack mobile development.</p>
-
-  <div class="skills-layout fade-up">
-    <!-- ECE 70% -->
-    <div class="skill-group ece-group">
-      <div class="sg-header">
-        <div class="sg-icon cop">⚙️</div>
-        <span class="sg-title">Embedded Systems</span>
-        <span class="sg-badge ece">ECE CORE</span>
-      </div>
-      <div class="chips">
-        <span class="chip main">Arduino (ATmega328P)</span>
-        <span class="chip main">Embedded C</span>
-        <span class="chip main">Microcontroller I/O</span>
-
-        
-        <span class="chip">Sensor Integration</span>
-        
-        
-      </div>
-    </div>
-
-    <div class="skill-group ece-group">
-      <div class="sg-header">
-        <div class="sg-icon cop">📡</div>
-        <span class="sg-title">IoT &amp; Communication</span>
-        <span class="sg-badge ece">ECE CORE</span>
-      </div>
-      <div class="chips">
-        <span class="chip main">MQTT</span>
-
-        <span class="chip main">WebSockets</span>
-        <span class="chip main">REST APIs</span>
-        <span class="chip">GSM · WiFi Provisioning</span>
-        <span class="chip">Real-time Data Streaming</span>
-        <span class="chip">AWS IoT</span>
-        <span class="chip">Sensor Pipelines</span>
-      </div>
-    </div>
-
-    <div class="skill-group ece-group">
-      <div class="sg-header">
-        <div class="sg-icon cop">👁️</div>
-        <span class="sg-title">Computer Vision &amp; AI</span>
-        <span class="sg-badge ece">ECE APPLIED</span>
-      </div>
-      <div class="chips">
-        <span class="chip main">YOLO (YOLOv5/v8)</span>
-        <span class="chip main">OpenCV</span>
-        <span class="chip main">DeepFace</span>
-        <span class="chip main">face_recognition</span>
-        <span class="chip">Image Processing</span>
-     
-        <span class="chip">Object Detection</span>
-        <span class="chip">Predictive Analytics</span>
-      </div>
-    </div>
-
-    <div class="skill-group ece-group">
-      <div class="sg-header">
-        <div class="sg-icon cop">🐍</div>
-        <span class="sg-title">Programming — ECE Stack</span>
-        <span class="sg-badge ece">ECE CORE</span>
-      </div>
-      <div class="chips">
-        <span class="chip main">Python</span>
-        <span class="chip main">Embedded C</span>
-        <span class="chip">Arduino IDE</span>
-        <span class="chip">Linux / Shell</span>
-
-        <span class="chip">PyAutoGUI</span>
-        <span class="chip">Flask</span>
-        <span class="chip">NLP Chatbot Design</span>
-      </div>
-    </div>
-
-    <!-- Software 30% -->
-    <div class="skill-group sw-group">
-      <div class="sg-header">
-        <div class="sg-icon blu">📱</div>
-        <span class="sg-title">Mobile Development</span>
-        <span class="sg-badge sw">SOFTWARE</span>
-      </div>
-      <div class="chips">
-        <span class="chip  ">React Native</span>
-        <span class="chip  ">TypeScript</span>
-        <span class="chip">JavaScript</span>
-        <span class="chip">Android (ReactNative)</span>
-
-        <span class="chip">Metro Bundler</span>
-
-
-      </div>
-    </div>
-
-    <div class="skill-group sw-group">
-      <div class="sg-header">
-        <div class="sg-icon blu">☁️</div>
-        <span class="sg-title">Backend &amp; Cloud</span>
-        <span class="sg-badge sw">SOFTWARE</span>
-      </div>
-      <div class="chips">
-        <span class="chip  ">Firebase</span>
-        <span class="chip  ">Node.js</span>
-        <span class="chip">MongoDB</span>
-        <span class="chip">MySQL</span>
- 
-        <span class="chip">Git · GitHub</span>
-        <span class="chip">VS Code</span>
-     
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── PROJECTS ─── -->
-<section id="projects">
-  <div class="section-label">Work</div>
-  <h2 class="section-title">Projects that ship hardware + software.</h2>
-  <p class="section-sub">ECE-first engineering — from microcontroller control loops to AI-powered IoT dashboards.</p>
-
-  <div class="proj-grid">
-
-    <!-- FEATURED: Traffic Light -->
-    <div class="proj-card featured fade-up">
-      <div class="proj-left">
-        <div class="proj-icon pi-copper">🚦</div>
-        <div class="proj-num">01 · ECE · EMBEDDED · COMPUTER VISION · ⭐ FLAGSHIP</div>
-        <div class="proj-tags">
-          <span class="proj-tag pt-ece">Arduino</span>
-          <span class="proj-tag pt-ece">Embedded C</span>
-          <span class="proj-tag pt-ece">YOLO</span>
-          <span class="proj-tag pt-ece">OpenCV</span>
-          <span class="proj-tag pt-ai">Python</span>
-          <span class="proj-tag pt-ece">UART</span>
-        </div>
-        <h3 class="proj-title">Density-Based Adaptive Traffic Light Control System</h3>
-        <p class="proj-desc">A hardware-software co-design system that replaces fixed-timer traffic signals with YOLO-powered computer vision feeding an Arduino microcontroller — physical lights respond dynamically to real vehicle density.</p>
-        <ul class="proj-bullets">
-          <li><strong>YOLOv5 object detection</strong> counts vehicles per lane on live camera feeds in real time</li>
-          <li><strong>Arduino (Embedded C)</strong> receives lane density data and modulates traffic light timings via digital I/O &amp; PWM</li>
-          <li><strong>Python serial bridge</strong> (UART) translates YOLO inference output into hardware control commands</li>
-          <li><strong>OpenCV</strong> handles frame capture, pre-processing, and ROI-based lane segmentation</li>
-          <li>Demonstrates: microcontroller I/O, embedded programming, real-time CV, sensor-to-actuator control loops</li>
-        </ul>
-        <div class="proj-footer">
-          <a href="https://github.com/surendar050/Density-based-trafic-light-" target="_blank" class="proj-link">View on GitHub →</a>
-          <div class="proj-chips">
-            <span class="proj-chip">cam3.py</span>
-            <span class="proj-chip">controll.c</span>
-            <span class="proj-chip">C + Python</span>
-          </div>
-        </div>
-      </div>
-      <div class="proj-right">
-        <div class="hw-block">
-          <div class="hw-block-title">Hardware Spec</div>
-          <div class="hw-row"><span class="hw-key">MCU</span><span class="hw-val">Arduino ATmega328P</span></div>
-          <div class="hw-row"><span class="hw-key">Language</span><span class="hw-val">Embedded C</span></div>
-          <div class="hw-row"><span class="hw-key">Interface</span><span class="hw-val">UART Serial</span></div>
-          <div class="hw-row"><span class="hw-key">Output</span><span class="hw-val">Digital I/O · PWM</span></div>
-          <div class="hw-row"><span class="hw-key">Clock</span><span class="hw-val">16 MHz</span></div>
-        </div>
-        <div class="hw-block">
-          <div class="hw-block-title">AI Pipeline</div>
-          <div class="hw-row"><span class="hw-key">Model</span><span class="hw-val">YOLOv5</span></div>
-          <div class="hw-row"><span class="hw-key">Vision</span><span class="hw-val">OpenCV</span></div>
-          <div class="hw-row"><span class="hw-key">Language</span><span class="hw-val">Python</span></div>
-          <div class="hw-row"><span class="hw-key">Task</span><span class="hw-val">Object Detection</span></div>
-        </div>
-        <div class="hw-block-title" style="margin-top:.8rem">System Flow</div>
-        <div class="flow-steps">
-          <div class="flow-step"><span class="flow-dot fd-copper">1</span>Camera frame capture via OpenCV</div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-step"><span class="flow-dot fd-green">2</span>YOLO detects &amp; counts vehicles per lane</div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-step"><span class="flow-dot fd-copper">3</span>Python sends density data over UART</div>
-          <div class="flow-arrow">↓</div>
-          <div class="flow-step"><span class="flow-dot fd-green">4</span>Arduino I/O adjusts traffic light signals</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AirSense -->
-    <div class="proj-card fade-up">
-      <div class="proj-icon pi-green">🌫️</div>
-      <div class="proj-num">02 · IoT · SENSOR PIPELINE · AI CLASSIFICATION</div>
-      <div class="proj-tags">
-        <span class="proj-tag pt-ece">IoT</span>
-        <span class="proj-tag pt-ece">Sensor Data</span>
-        <span class="proj-tag pt-ai">NLP Chatbot</span>
-        <span class="proj-tag pt-sw">React Native</span>
-        <span class="proj-tag pt-sw">TypeScript</span>
-      </div>
-      <h3 class="proj-title">AirSense — IoT Air Quality Monitoring Dashboard</h3>
-      <p class="proj-desc">End-to-end IoT environmental sensor dashboard with real-time data pipeline, multi-pollutant visualisation, AI-driven classification, and embedded NLP chatbot.</p>
-      <ul class="proj-bullets">
-        <li><strong>IoT sensor data pipeline</strong>: real-time CSV ingestion via react-native-fs + papaparse</li>
-        <li><strong>AI classification model</strong>: Good/Moderate/Unhealthy with predictive analytics</li>
-        <li>Rule-based <strong>NLP chatbot</strong> for natural language pollutant queries</li>
-        <li>Full <strong>Android + iOS</strong> build pipelines (Metro, CocoaPods) from scratch</li>
-      </ul>
-      <div class="proj-footer">
-        <a href="https://github.com/surendar050/AIRSENSE-app" target="_blank" class="proj-link">View on GitHub →</a>
-        <div class="proj-chips"><span class="proj-chip">React Native</span><span class="proj-chip">TypeScript</span></div>
-      </div>
-    </div>
-
-    <!-- Face Recognition -->
-    <div class="proj-card fade-up">
-      <div class="proj-icon pi-copper">🧠</div>
-      <div class="proj-num">03 · COMPUTER VISION · DEEP LEARNING · AI</div>
-      <div class="proj-tags">
-        <span class="proj-tag pt-ai">DeepFace</span>
-        <span class="proj-tag pt-ece">OpenCV</span>
-        <span class="proj-tag pt-ai">Python</span>
-        <span class="proj-tag pt-sw">REST API</span>
-      </div>
-      <h3 class="proj-title">Face Recognition Attendance System</h3>
-      <p class="proj-desc">Deep learning–based facial recognition for automated attendance, demonstrating AI model integration for biometric security and smart access control systems.</p>
-      <ul class="proj-bullets">
-        <li><strong>DeepFace + OpenCV</strong> multi-identity recognition pipeline with confidence scoring</li>
-        <li>REST API-ready backend for IoT/mobile integration and cloud dashboard connectivity</li>
-        <li>Applicable to: biometric security, smart access control, embedded AI systems</li>
-      </ul>
-      <div class="proj-footer">
-        <a href="https://github.com/surendar050/Face-Recognition" target="_blank" class="proj-link">View on GitHub →</a>
-        <div class="proj-chips"><span class="proj-chip">DeepFace</span><span class="proj-chip">OpenCV</span></div>
-      </div>
-    </div>
-
-    <!-- FastRider -->
-    <div class="proj-card fade-up">
-      <div class="proj-icon pi-blue">🏍️</div>
-      <div class="proj-num">04 · IoT MOBILE · CLOUD BACKEND · SOFTWARE</div>
-      <div class="proj-tags">
-        <span class="proj-tag pt-ece">IoT</span>
-        <span class="proj-tag pt-sw">React Native</span>
-        <span class="proj-tag pt-sw">Firebase</span>
-        <span class="proj-tag pt-sw">REST API</span>
-      </div>
-      <h3 class="proj-title">FastRider — Real-Time IoT Mobile App</h3>
-      <p class="proj-desc">Cross-platform React Native application for real-time IoT device monitoring with live data streaming, cloud backend integration, and dynamic sensor dashboards.</p>
-      <ul class="proj-bullets">
-        <li>Live IoT data streaming from device endpoints with real-time state management</li>
-        <li><strong>Firebase cloud integration</strong> for persistent IoT sensor data storage and retrieval</li>
-        <li>Architecture mirrors production IoT dashboard: Android + iOS, cloud-connected</li>
-      </ul>
-      <div class="proj-footer">
-        <a href="https://github.com/surendar050/fsatrider" target="_blank" class="proj-link">View on GitHub →</a>
-        <div class="proj-chips"><span class="proj-chip">React Native</span><span class="proj-chip">Firebase</span></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ─── EXPERIENCE ─── -->
-<section id="experience">
-  <div class="section-label">Background</div>
-  <h2 class="section-title">Education, Experience &amp; Certifications</h2>
-
-  <div class="exp-grid">
-    <div>
-      <div class="timeline fade-up">
-        <!-- Education -->
-        <div class="tl-entry">
-          <div class="tl-dot pi-copper" style="background:rgba(232,146,10,.12);border:1px solid rgba(232,146,10,.3)">🎓</div>
-          <div class="tl-body">
-            <div class="tl-meta">
-              <span class="tl-year">2022 – Present</span>
-              <span class="tl-badge tb-copper">B.TECH</span>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav py-4">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div class="text-xl font-bold mono tracking-tighter">
+                <span class="text-blue-400">&lt;</span>SURENDAR L <span class="text-blue-400">/&gt;</span>
             </div>
-            <div class="tl-title">Electronics &amp; Communication Engineering</div>
-            <div class="tl-org">Pondicherry University, Puducherry</div>
-            <div class="tl-desc">Core curriculum in embedded systems, signal processing, microcontrollers, communication protocols, and VLSI design. Supplemented with hands-on IoT and AI/ML project work.</div>
-          </div>
-        </div>
-        <!-- Internship -->
-        <div class="tl-entry">
-          <div class="tl-dot" style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25)">🔒</div>
-          <div class="tl-body">
-            <div class="tl-meta">
-              <span class="tl-year">2024</span>
-              <span class="tl-badge tb-blue">INTERNSHIP</span>
+            <div class="hidden md:flex space-x-8 text-sm font-medium items-center">
+                <a href="#about" class="hover:text-blue-400 transition">About</a>
+                <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
+                <a href="#projects" class="hover:text-blue-400 transition">Projects</a>
+                <a href="#experience" class="hover:text-blue-400 transition">Experience</a>
+        
+                <a href="#contact" class="hover:text-blue-400 transition text-blue-400 border border-blue-400 px-3 py-1 rounded">Hire Me</a>
             </div>
-            <div class="tl-title">Government Internship</div>
-            <div class="tl-org">Pondicherry Cyber Crime Unit · Govt. of India</div>
-            <div class="tl-desc">Digital forensics, network security monitoring, incident response. Secure communication protocols directly applicable to IoT device security and cloud-connected embedded systems.</div>
-          </div>
+            <button class="md:hidden text-2xl" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-      </div>
+    </nav>
 
-      <!-- ECE Coursework -->
-      <div class="coursework fade-up">
-        <div class="cw-title">Core ECE Coursework</div>
-        <div class="cw-chips">
-          <span class="cw-chip">Digital Electronics</span>
-          <span class="cw-chip">Microprocessors &amp; µC</span>
-          <span class="cw-chip">Embedded System Design</span>
-          <span class="cw-chip">Signals &amp; Systems</span>
-          <span class="cw-chip">Communication Systems</span>
-          <span class="cw-chip">VLSI Design</span>
-          <span class="cw-chip">Control Systems</span>
-          <span class="cw-chip">Digital Signal Processing</span>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center hero-gradient relative overflow-hidden">
+        <div class="max-w-4xl text-center z-10 px-4 pt-20">
+            <p class="mono text-blue-400 mb-4 animate-pulse">Hi, my name is</p>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">Surendar L.</h1>
+            <h2 class="text-2xl md:text-4xl font-semibold text-slate-400 mb-8 leading-tight">
+                Bridging Hardware & Software with <span class="text-gradient">AI & IoT</span>.
+            </h2>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                B.Tech ECE student at Pondicherry University. Specializing in embedded systems, real-time computer vision, and building cloud-connected hardware solutions.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#projects" class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-full font-semibold transition btn-glow">View Projects</a>
+                <a href="Surendar_L_Resume_ECE164_intern.pdf" class="border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-slate-900 px-8 py-3 rounded-full font-semibold transition flex items-center">
+                    <i class="fas fa-download mr-2"></i>Download Resume
+                </a>
+            </div>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <div>
-      <div class="cert-grid fade-up">
-        <div class="cert-item">
-          <div class="cert-icon">🔒</div>
-          <div class="cert-text">
-            <h5>Cybersecurity Awareness</h5>
-            <p>Government Cyber Crime Unit, Pondicherry</p>
-          </div>
+    <!-- About Section -->
+    <section id="about" class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h3 class="text-3xl font-bold mb-6 flex items-center">
+                    <span class="text-blue-400 mono mr-4">01.</span> About Me
+                </h3>
+                <div class="text-slate-400 space-y-4 text-lg">
+                    <p>
+                        I am an Electronics and Communication Engineering student with a passion for building 
+                        intelligent systems. My expertise lies in the intersection of <span class="text-white">Embedded C</span>, 
+                        <span class="text-white">IoT protocols</span>, and <span class="text-white">Computer Vision (YOLO)</span>.
+                    </p>
+                    <p>
+                        From sensor data acquisition to full-stack dashboard development, I enjoy creating 
+                        end-to-end solutions that solve real-world problems like traffic management 
+                        and air quality monitoring.
+                    </p>
+                </div>
+                <div class="mt-8 grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                        <h4 class="text-white font-bold mb-1">Education</h4>
+                        <p class="text-sm text-slate-400">B.Tech ECE, Pondicherry University</p>
+                        <p class="text-xs text-blue-400 mt-1">7.31 CGPA</p>
+                    </div>
+                    <div class="p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                        <h4 class="text-white font-bold mb-1">Location</h4>
+                        <p class="text-sm text-slate-400">Chennai, India</p>
+                        <p class="text-xs text-blue-400 mt-1">Ready for Internship</p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-lg blur opacity-25 group-hover:opacity-50 transition"></div>
+                <div class="relative bg-slate-800 rounded-lg p-6 border border-slate-700 h-full flex flex-col justify-center items-center">
+                   <i class="fas fa-microchip text-8xl text-blue-400/20 absolute"></i>
+                   <div class="text-center z-10">
+                       <h4 class="text-xl font-bold text-white mb-4">Core Philosophy</h4>
+                       <p class="italic text-slate-400">"Building hardware that thinks and software that interacts."</p>
+                   </div>
+                </div>
+            </div>
         </div>
-        <div class="cert-item">
-          <div class="cert-icon">🌐</div>
-          <div class="cert-text">
-            <h5>Front-End Development</h5>
-            <p>Mindluster Certification</p>
-          </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="bg-slate-900/50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h3 class="text-3xl font-bold mb-12 text-center">Technical Arsenal</h3>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Embedded -->
+                <div class="skill-card p-6 bg-slate-800 rounded-xl border border-slate-700 transition">
+                    <div class="text-blue-400 text-3xl mb-4"><i class="fas fa-microchip"></i></div>
+                    <h4 class="text-lg font-bold mb-4 text-white">Embedded & IoT</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Arduino</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">ESP32</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Raspberry Pi</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Embedded C</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">MQTT</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">AWS IoT</span>
+                    </div>
+                </div>
+
+                <!-- AI / CV -->
+                <div class="skill-card p-6 bg-slate-800 rounded-xl border border-slate-700 transition">
+                    <div class="text-blue-400 text-3xl mb-4"><i class="fas fa-brain"></i></div>
+                    <h4 class="text-lg font-bold mb-4 text-white">Computer Vision</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">YOLO v5/v8</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">OpenCV</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">DeepFace</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Image Processing</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Python</span>
+                    </div>
+                </div>
+
+                <!-- Web Development -->
+                <div class="skill-card p-6 bg-slate-800 rounded-xl border border-slate-700 transition">
+                    <div class="text-blue-400 text-3xl mb-4"><i class="fas fa-laptop-code"></i></div>
+                    <h4 class="text-lg font-bold mb-4 text-white">Web Development</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">React Native</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">MERN Stack</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Node.js</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Flask</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Firebase</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">TypeScript</span>
+                    </div>
+                </div>
+
+                <!-- Design & Tools -->
+                <div class="skill-card p-6 bg-slate-800 rounded-xl border border-slate-700 transition">
+                    <div class="text-blue-400 text-3xl mb-4"><i class="fas fa-drafting-compass"></i></div>
+                    <h4 class="text-lg font-bold mb-4 text-white">Design & Tools</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">KiCAD (PCB)</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Blender (3D)</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Proteus</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Git/GitHub</span>
+                        <span class="px-3 py-1 bg-slate-700 rounded text-xs">Linux/WSL</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="cert-item">
-          <div class="cert-icon">🎨</div>
-          <div class="cert-text">
-            <h5>UI/UX Design</h5>
-            <p>Fundamentals &amp; Prototyping</p>
-          </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="max-w-6xl mx-auto px-4">
+        <h3 class="text-3xl font-bold mb-12 flex items-center">
+            <span class="text-blue-400 mono mr-4">02.</span> Featured Projects
+        </h3>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Project 1 -->
+            <div class="project-card p-8 rounded-2xl bg-slate-800/40">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="text-blue-400 text-4xl"><i class="fas fa-wind"></i></div>
+                    <div class="flex space-x-4 text-xl">
+                        <a href="https://github.com/surendar050/AIRSENSE-app" target="_blank" class="hover:text-blue-400 transition"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <h4 class="text-2xl font-bold mb-3 text-white">AirSense IoT Dashboard</h4>
+                <p class="text-slate-400 mb-6 line-clamp-3">
+                    Environmental sensing dashboard using ESP32 & BME280. Features real-time data visualization and an integrated NLP chatbot for pollutant queries.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4 mono text-xs text-blue-300">
+                    <span>React Native</span>
+                    <span>TypeScript</span>
+                    <span>ESP32</span>
+                    <span>Firebase</span>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card p-8 rounded-2xl bg-slate-800/40">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="text-blue-400 text-4xl"><i class="fas fa-traffic-light"></i></div>
+                    <div class="flex space-x-4 text-xl text-slate-300">
+                        <a href="https://github.com/surendar050/Density-based-trafic-light-" target="_blank" class="hover:text-blue-400 transition"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <h4 class="text-2xl font-bold mb-3 text-white">Adaptive Traffic System</h4>
+                <p class="text-slate-400 mb-6 line-clamp-3">
+                    Density-aware traffic light control using YOLOv5 for vehicle counting and Arduino for hardware adjustment over UART serial communication.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4 mono text-xs text-blue-300">
+                    <span>Python</span>
+                    <span>YOLOv5</span>
+                    <span>Arduino</span>
+                    <span>OpenCV</span>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card p-8 rounded-2xl bg-slate-800/40">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="text-blue-400 text-4xl"><i class="fas fa-user-check"></i></div>
+                    <div class="flex space-x-4 text-xl text-slate-300">
+                        <a href="https://github.com/surendar050/Face-Recognition" target="_blank" class="hover:text-blue-400 transition"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <h4 class="text-2xl font-bold mb-3 text-white">Face Recognition</h4>
+                <p class="text-slate-400 mb-6 line-clamp-3">
+                    Automated AI attendance system using DeepFace and OpenCV for real-time video-based identity verification with confidence scoring.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4 mono text-xs text-blue-300">
+                    <span>DeepFace</span>
+                    <span>REST API</span>
+                    <span>OpenCV</span>
+                    <span>Python</span>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card p-8 rounded-2xl bg-slate-800/40">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="text-blue-400 text-4xl"><i class="fas fa-motorcycle"></i></div>
+                    <div class="flex space-x-4 text-xl text-slate-300">
+                        <a href="https://github.com/surendar050/fsatrider" target="_blank" class="hover:text-blue-400 transition"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <h4 class="text-2xl font-bold mb-3 text-white">FastRider App</h4>
+                <p class="text-slate-400 mb-6 line-clamp-3">
+                    A Rapido-like mobile application for real-time ride tracking, featuring complex state management and high-frequency data updates.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4 mono text-xs text-blue-300">
+                    <span>React Native</span>
+                    <span>Firebase</span>
+                    <span>REST API</span>
+                </div>
+            </div>
         </div>
-        <div class="cert-item">
-          <div class="cert-icon">🐧</div>
-          <div class="cert-text">
-            <h5>Linux Administration</h5>
-            <p>Shell Scripting &amp; System Admin</p>
-          </div>
+    </section>
+
+    <!-- Experience & Education Section -->
+    <section id="experience" class="bg-slate-900/30">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-16">
+            <!-- Timeline Item -->
+            <div>
+                <h3 class="text-3xl font-bold mb-10 flex items-center">
+                    <i class="fas fa-briefcase text-blue-400 mr-4"></i> Experience
+                </h3>
+                <div class="relative pl-8 border-l-2 border-slate-700">
+                    <div class="mb-10 relative">
+                        <div class="absolute -left-[41px] top-0 w-4 h-4 bg-blue-400 rounded-full border-4 border-slate-900"></div>
+                        <h4 class="text-xl font-bold text-white">Cyber Crime Unit Intern</h4>
+                        <p class="text-blue-400 mb-2">Govt. of Pondicherry | May 2025</p>
+                        <ul class="text-slate-400 list-disc ml-4 space-y-2 text-sm">
+                            <li>Assisted in digital forensics and threat analysis operations.</li>
+                            <li>Applied secure communication protocols for IoT and cloud device safety.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div>
+                <h3 class="text-3xl font-bold mb-10 flex items-center">
+                    <i class="fas fa-graduation-cap text-blue-400 mr-4"></i> Education
+                </h3>
+                <div class="space-y-8">
+                    <div class="p-5 bg-slate-800/50 rounded-xl border border-slate-700">
+                        <p class="text-blue-400 text-sm mono">2023 - Present</p>
+                        <h4 class="text-lg font-bold text-white">B.Tech in ECE</h4>
+                        <p class="text-slate-400">Pondicherry University</p>
+                        <p class="text-sm font-bold text-slate-300 mt-2">7.31 CGPA</p>
+                    </div>
+                    <div class="p-5 bg-slate-800/50 rounded-xl border border-slate-700">
+                        <p class="text-blue-400 text-sm mono">2021 - 2023</p>
+                        <h4 class="text-lg font-bold text-white">Higher Secondary (12th)</h4>
+                        <p class="text-slate-400">IJMHSS-State Board</p>
+                        <p class="text-sm font-bold text-slate-300 mt-2">70%</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- quick stats -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-top:1.5rem" class="fade-up">
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;text-align:center">
-          <div style="font-family:var(--head);font-size:2rem;font-weight:700;color:var(--copper)">10</div>
-          <div style="font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.08em">PROJECTS</div>
+    <!-- Contact Section -->
+    <section id="contact" class="max-w-4xl mx-auto px-4 text-center">
+        <h3 class="text-blue-400 mono mb-4">What's Next?</h3>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Get In Touch</h2>
+        <p class="text-slate-400 mb-10 text-lg">
+            I'm currently looking for internship opportunities in <span class="text-white">Embedded Systems</span>, 
+            <span class="text-white">IoT</span>, or <span class="text-white">AI/CV Roles</span>. My inbox is always open!
+        </p>
+        
+        <div class="flex flex-col items-center space-y-6">
+            <a href="mailto:surendar7645321@gmail.com" class="text-2xl md:text-3xl font-bold text-blue-400 hover:underline">
+                surendar7645321@gmail.com
+            </a>
+            
+            <div class="flex space-x-8 text-3xl mt-6">
+                <a href="https://linkedin.com/in/surendar-1-046bab343" target="_blank" class="text-slate-400 hover:text-blue-400 transition"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/surendar050" target="_blank" class="text-slate-400 hover:text-blue-400 transition"><i class="fab fa-github"></i></a>
+                <a href="tel:9894520904" class="text-slate-400 hover:text-blue-400 transition"><i class="fas fa-phone-alt"></i></a>
+            </div>
         </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;text-align:center">
-          <div style="font-family:var(--head);font-size:2rem;font-weight:700;color:var(--green)">3</div>
-          <div style="font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.08em">LANGUAGES</div>
-        </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;text-align:center">
-          <div style="font-family:var(--head);font-size:2rem;font-weight:700;color:var(--blueL)">2yr</div>
-          <div style="font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.08em">ECE PROJECTS</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ─── CONTACT ─── -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="section-label" style="justify-content:center">Contact</div>
-    <h2 class="section-title">Let's build something remarkable.</h2>
-    <p class="section-sub" style="margin:0 auto;text-align:center">
-      Available for ECE internships, embedded systems roles, IoT product development, and computer vision projects. Open to remote collaboration from Chennai.
-    </p>
+    <footer class="py-10 text-center text-slate-500 mono text-xs border-t border-slate-800">
+        <p>Built by Surendar L &copy; 2024</p>
+        <p class="mt-2">Electronics & Communication Engineering Portfolio</p>
+    </footer>
 
-    <div class="contact-grid fade-up">
-      <a href="mailto:surendar7645321@gmail.com" class="contact-card">
-        <span class="cc-icon">✉️</span>
-        <div><div class="cc-label">Email</div><div class="cc-value">surendar7645321@gmail.com</div></div>
-      </a>
-      <a href="https://github.com/surendar050" target="_blank" class="contact-card">
-        <span class="cc-icon">⌥</span>
-        <div><div class="cc-label">GitHub</div><div class="cc-value">github.com/surendar050</div></div>
-      </a>
-      <a href="https://www.linkedin.com/in/surendar-l-046bab343/" target="_blank" class="contact-card">
-        <span class="cc-icon">💼</span>
-        <div><div class="cc-label">LinkedIn</div><div class="cc-value">surendar-l-046bab343</div></div>
-      </a>
-      <a href="Surendar_L_Resume_ECE.pdf" target="_blank" class="contact-card">
-        <span class="cc-icon">📄</span>
-        <div><div class="cc-label">Resume PDF</div><div class="cc-value">Download Resume →</div></div>
-      </a>
-    </div>
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const nav = document.querySelector('nav div div:last-child');
+        
+        menuBtn.addEventListener('click', () => {
+            const isHidden = nav.classList.contains('hidden');
+            if(isHidden) {
+                nav.classList.remove('hidden');
+                nav.classList.add('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'w-full', 'bg-slate-900', 'p-6', 'space-y-4', 'space-x-0', 'text-center');
+            } else {
+                nav.classList.add('hidden');
+            }
+        });
 
-    <div class="contact-footer">
-      Chennai, India · B.Tech ECE · Pondicherry University · Available for Remote Internship · 2025
-    </div>
-  </div>
-</section>
+        // Smooth reveal on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
 
-<!-- ─── FOOTER ─── -->
-<footer>
-  <span class="footer-brand">Surendar L. · ECE Engineer</span>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
 
-</footer>
-
-<script>
-/* ─── CIRCUIT CANVAS BACKGROUND ─── */
-(function(){
-  const canvas = document.getElementById('circuit-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, nodes = [], traces = [];
-
-  function resize(){
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-    generateCircuit();
-  }
-
-  function generateCircuit(){
-    nodes = [];traces = [];
-    const cols = Math.ceil(W/80), rows = Math.ceil(H/80);
-    for(let r=0;r<=rows;r++){
-      for(let c=0;c<=cols;c++){
-        if(Math.random()<0.35){
-          nodes.push({
-            x: c*80 + (Math.random()-.5)*30,
-            y: r*80 + (Math.random()-.5)*30,
-            r: Math.random()<0.1 ? 4 : 2,
-            alpha: .2+Math.random()*.3,
-            pulse: Math.random()*Math.PI*2
-          });
-        }
-      }
-    }
-    nodes.forEach((n,i)=>{
-      const nearby = nodes.filter((m,j)=>j!==i&&Math.hypot(n.x-m.x,n.y-m.y)<120);
-      if(nearby.length){
-        const t = nearby[Math.floor(Math.random()*nearby.length)];
-        traces.push({x1:n.x,y1:n.y,x2:t.x,y2:t.y,alpha:.05+Math.random()*.08,isH:Math.random()<.5});
-      }
-    });
-  }
-
-  let tick=0;
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    tick+=.018;
-
-    // traces
-    traces.forEach(t=>{
-      ctx.beginPath();
-      ctx.strokeStyle=`rgba(232,146,10,${t.alpha})`;
-      ctx.lineWidth=.8;
-      if(t.isH){
-        const mx=(t.x1+t.x2)/2;
-        ctx.moveTo(t.x1,t.y1);
-        ctx.lineTo(mx,t.y1);
-        ctx.lineTo(mx,t.y2);
-        ctx.lineTo(t.x2,t.y2);
-      } else {
-        ctx.moveTo(t.x1,t.y1);ctx.lineTo(t.x2,t.y2);
-      }
-      ctx.stroke();
-    });
-
-    // nodes
-    nodes.forEach(n=>{
-      const a = n.alpha*(0.6+0.4*Math.sin(tick+n.pulse));
-      ctx.beginPath();
-      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(232,146,10,${a})`;
-      ctx.fill();
-      if(n.r>3){
-        ctx.beginPath();
-        ctx.arc(n.x,n.y,n.r+3,0,Math.PI*2);
-        ctx.strokeStyle=`rgba(232,146,10,${a*.3})`;
-        ctx.lineWidth=1;
-        ctx.stroke();
-      }
-    });
-
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize',resize);
-  resize();
-  draw();
-})();
-
-/* ─── OSCILLOSCOPE WAVE ─── */
-(function(){
-  const canvas = document.getElementById('oscWave');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let t=0;
-
-  function drawWave(){
-    const W=canvas.offsetWidth, H=80;
-    canvas.width=W;canvas.height=H;
-    ctx.clearRect(0,0,W,H);
-
-    // signal 1 — main wave
-    ctx.beginPath();
-    ctx.strokeStyle='#22C55E';
-    ctx.lineWidth=1.5;
-    ctx.shadowBlur=6;ctx.shadowColor='#22C55E';
-    for(let x=0;x<W;x++){
-      const p=x/W;
-      const y=H/2
-        - Math.sin(p*Math.PI*6+t)*14
-        - Math.sin(p*Math.PI*2+t*.3)*6
-        + Math.sin(p*Math.PI*10+t*1.5)*3;
-      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-    }
-    ctx.stroke();
-
-    // signal 2 — faint secondary
-    ctx.beginPath();
-    ctx.strokeStyle='rgba(59,130,246,.4)';
-    ctx.lineWidth=1;
-    ctx.shadowBlur=4;ctx.shadowColor='#3B82F6';
-    for(let x=0;x<W;x++){
-      const p=x/W;
-      const y=H/2-Math.sin(p*Math.PI*4+t*.7)*8;
-      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-    }
-    ctx.stroke();
-    ctx.shadowBlur=0;
-    t+=0.06;
-    requestAnimationFrame(drawWave);
-  }
-  drawWave();
-})();
-
-/* ─── SCROLL ANIMATIONS ─── */
-(function(){
-  const obs = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
-  },{threshold:.12});
-  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-})();
-
-/* ─── NAVBAR SCROLL ─── */
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30);
-});
-
-/* ─── HAMBURGER ─── */
-document.getElementById('hamburger').addEventListener('click',()=>{
-  document.getElementById('mobileMenu').classList.toggle('open');
-});
-function closeMobile(){
-  document.getElementById('mobileMenu').classList.remove('open');
-}
-
-/* ─── FPS COUNTER ANIMATION ─── */
-(function(){
-  const el = document.getElementById('fps');
-  if(!el) return;
-  const values=['28 FPS','30 FPS','29 FPS','30 FPS','31 FPS'];
-  let i=0;
-  setInterval(()=>{el.textContent=values[i++ % values.length];},1800);
-})();
-</script>
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
